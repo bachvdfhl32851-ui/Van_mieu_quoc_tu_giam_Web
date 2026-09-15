@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đội Bảng Lên Bảng Vàng | Văn Miếu - Quốc Tử Giám</title>
+
+    <meta name="description"
+          content="Mini game xếp bia Tiến sĩ lên lưng rùa đá - trả lời câu hỏi Bia Đá Trí Tuệ để nhận buff và chinh phục Bảng Vàng.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <div class="logo-symbol">文</div>
+
+        <div>
+            <span>VĂN MIẾU</span>
+            <small>QUỐC TỬ GIÁM</small>
+        </div>
+    </div>
+
+    <nav class="navbar">
+
+        <a href="index.html">Trang chủ</a>
+
+        <a href="history.html">Lịch sử</a>
+
+        <a href="architecture.html">Kiến trúc</a>
+
+        <a href="stelae.html">82 bia Tiến sĩ</a>
+
+        <a href="values.html">Giá trị</a>
+
+        <a href="visit.html">Tham quan</a>
+
+        <a href="facts.html">Sự thật thú vị</a>
+
+        <a href="game.html" class="current">Mini Game</a>
+
+    </nav>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Chuyển giao diện sáng / tối">
+        ☾
+    </button>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Mở menu điều hướng">
+        ☰
+    </button>
+
+</header>
+
+
+<!-- ================= PAGE BANNER ================= -->
+
+<section class="page-banner">
+
+    <p>MINI GAME</p>
+
+    <h1>Đội Bảng Lên Bảng Vàng</h1>
+
+    <div class="line"></div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a> / Mini Game
+    </div>
+
+</section>
+
+
+<!-- ================= GAME ================= -->
+
+<section class="section game-section">
+
+    <div class="section-title center">
+
+        <p>THỬ THÁCH XẾP BIA</p>
+
+        <h2>Xếp bia Tiến sĩ lên lưng rùa đá</h2>
+
+        <div class="line"></div>
+
+    </div>
+
+    <p class="game-instructions">
+        Chạm vào bàn cờ (hoặc nhấn phím Cách) đúng lúc để thả tấm bia
+        xuống, xếp thật thẳng hàng lên tấm bia trước đó. Cứ mỗi khi xếp
+        được 1 tầng, câu hỏi sẽ xuất hiện trong 10 giây để nhận Buff hỗ trợ! 
+        Xếp càng cao, sĩ tử càng tiến gần Bảng Vàng.
+    </p>
+
+    <div class="game-wrap">
+
+        <div class="game-hud">
+
+            <div class="game-hud-item">
+                <span>TẦNG BIA</span>
+                <strong id="gameScore">0</strong>
+            </div>
+
+            <div class="game-hud-item">
+                <span>KỶ LỤC</span>
+                <strong id="gameBest">0</strong>
+            </div>
+
+        </div>
+
+        <div class="game-canvas-box">
+
+            <canvas id="gameCanvas" width="360" height="645"></canvas>
+
+            <div id="buffBadge" class="buff-badge"></div>
+
+            <!-- Màn hình bắt đầu -->
+            <div id="startOverlay" class="game-overlay show">
+                <h3>Đội Bảng Lên Bảng Vàng</h3>
+                <p>
+                    Xếp bia Tiến sĩ thật cân bằng lên lưng rùa đá.
+                    Chạm đúng lúc, xếp thật cao!
+                </p>
+                <button id="startGameBtn" class="btn-solid">BẮT ĐẦU</button>
+            </div>
+
+            <!-- Bia Đá Trí Tuệ -->
+            <div id="quizOverlay" class="game-overlay quiz-overlay">
+                <p class="quiz-label">BIA ĐÁ TRÍ TUỆ</p>
+                <div class="quiz-timerbar">
+                    <div id="quizBar" class="quiz-timerbar-fill"></div>
+                </div>
+                <h3 id="quizQuestion">Câu hỏi...</h3>
+                <div id="quizOptions" class="quiz-options"></div>
+                <p id="quizFeedback" class="quiz-feedback"></p>
+            </div>
+
+            <!-- Kết thúc -->
+            <div id="gameoverOverlay" class="game-overlay">
+                <h3>Tháp bia đã đổ!</h3>
+                <p id="gameoverPoem" class="gameover-poem"></p>
+                <div class="gameover-score">
+                    <div>
+                        <span>Tầng đạt được</span>
+                        <strong id="finalScore">0</strong>
+                    </div>
+                    <div>
+                        <span>Kỷ lục</span>
+                        <strong id="finalBest">0</strong>
+                    </div>
+                </div>
+                <button id="retryGameBtn" class="btn-solid">CHƠI LẠI</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <div class="footer-logo">
+                VĂN MIẾU
+            </div>
+
+            <p>
+                QUỐC TỬ GIÁM
+            </p>
+
+            <span>
+                Gần một thiên niên kỷ lưu giữ
+                tinh hoa đạo học Việt Nam.
+            </span>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h4>
+                KHÁM PHÁ
+            </h4>
+
+            <a href="history.html">Lịch sử</a>
+            <a href="architecture.html">Kiến trúc</a>
+            <a href="stelae.html">82 bia Tiến sĩ</a>
+            <a href="values.html">Giá trị</a>
+            <a href="facts.html">Sự thật thú vị</a>
+            <a href="game.html">Mini Game</a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h4>
+                THAM QUAN
+            </h4>
+
+            <a href="visit.html">Thông tin tham quan</a>
+            <a href="visit.html">Giờ mở cửa</a>
+            <a href="visit.html">Giá vé</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 Văn Miếu – Quốc Tử Giám
+
+        <br>
+
+        Thông tin tham khảo:
+        Trung tâm Hoạt động Văn hóa Khoa học
+        Văn Miếu – Quốc Tử Giám
+
+    </div>
+
+</footer>
+
+
+<!-- NÚT LÊN ĐẦU TRANG -->
+
+<button id="topBtn" class="top-btn" aria-label="Về đầu trang">
+    ↑
+</button>
+
+
+<script src="script.js"></script>
+<script src="minigame.js"></script>
+
+</body>
+</html>
