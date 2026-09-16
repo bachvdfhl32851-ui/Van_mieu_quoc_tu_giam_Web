@@ -1,6 +1,6 @@
+// mini game - xep bia tien si
 // ================================================
-// ĐỘI BẢNG LÊN BẢNG VÀNG - MINI GAME (Tower Stacker)
-// ================================================
+
 
 (function () {
 
@@ -16,15 +16,15 @@
     const MIN_OVERLAP = 10;
     const TOP_MARGIN = 50;
 
-    // Vị trí lưng rùa (mặt trên) trong ảnh nền, đã đo theo pixel ảnh gốc
+    // vi tri lung rua
     const PLATFORM_Y = Math.round(H * 0.771);
 
-    // Khoảng trống giữa 2 cột đỏ trong ảnh nền (tham chiếu canh giữa)
+    // khoang trong de xep bia
     const GATE_LEFT = Math.round(W * 0.39);
     const GATE_RIGHT = Math.round(W * 0.603);
     const GATE_CENTER = (GATE_LEFT + GATE_RIGHT) / 2;
 
-    // Chiều rộng khối bia - to hơn khoảng cách 2 cột, vẫn canh giữa trên lưng rùa
+    // chieu rong bia
     const BASE_W = 130;
     const BASE_X = GATE_CENTER - BASE_W / 2;
 
@@ -34,7 +34,7 @@
     const CHECKPOINT_EVERY = 1;
     const QUIZ_SECONDS = 10;
 
-    // Tông màu đá khắc chữ
+    // mau bia
     const STONE_TONES = [
         { light: "#cdc4b3", dark: "#9d947f", edge: "#5c5546" },
         { light: "#c3bcae", dark: "#948c78", edge: "#544d3f" },
@@ -42,24 +42,24 @@
         { light: "#bdb4a2", dark: "#8b8270", edge: "#4f483b" },
     ];
 
-    // -------- Trạng thái game --------
+    //======== trang thai game ==========
 
-    let state = "start"; // start | playing | quiz | gameover
+    let state = "start";
     let baseline = { x: BASE_X, w: BASE_W };
-    let blocks = []; // các tấm bia đã xếp, blocks[0] là tấm đầu tiên (thấp nhất)
+    let blocks = [];
     let current = null;
     let score = 0;
     let best = Number(localStorage.getItem("vanmieu-stack-best") || 0);
     let fallingPieces = [];
     let lastTime = 0;
 
-    let buff = null; // {type, remaining}
+    let buff = null;
     let pendingShrink = false;
 
     let usedQuestions = [];
     let quizTimer = null;
 
-    // -------- Ngân hàng câu hỏi --------
+    // ======== bo cau hoi ===========
 
     const QUESTIONS = [
         { q: "Văn Miếu được khởi dựng vào năm nào?", options: ["1010", "1070", "1076"], correct: 1 },
@@ -78,7 +78,7 @@
         { q: "Văn Miếu - Quốc Tử Giám tọa lạc ở thành phố nào?", options: ["Hà Nội", "Huế", "TP. Hồ Chí Minh"], correct: 0 },
     ];
 
-    // -------- Thơ vui khi thua --------
+    // ======= tho khi thua ========
 
     const FUNNY_POEMS = [
         "Bia đá nghiêng nghiêng rồi đổ ập,\nSĩ tử giật mình rớt bút lông.\nCông danh chưa toại đà tan giấc,\nThôi để khoa sau thử vận hồng!",
@@ -87,7 +87,7 @@
         "Tháp bia đổ giữa sân rồng vắng,\nQuan giám khảo lắc đầu cười khẽ ngâm:\n\"Học tài thi phận đôi khi lỡ,\nChơi lại lần này ắt sẽ hơn!\"",
     ];
 
-    // -------- Tiện ích --------
+    // ========= tien ich =========
 
     function pickQuestion() {
         if (usedQuestions.length >= QUESTIONS.length) usedQuestions = [];
@@ -107,7 +107,7 @@
         return blocks.length ? blocks[blocks.length - 1] : baseline;
     }
 
-    // Khoảng cách giữa các tầng - tự co lại khi tháp quá cao để luôn vừa khung hình
+    // khoang cach giua cac tam bia
     function getSpacing() {
         const available = PLATFORM_Y - TOP_MARGIN;
         const needed = (blocks.length + 1) * BLOCK_H;
@@ -115,12 +115,12 @@
         return available / (blocks.length + 1);
     }
 
-    // Vị trí Y (mép trên) của tầng thứ i (0 = tầng đặt đầu tiên, thấp nhất)
+    // vi tri y
     function blockTopY(i, spacing) {
         return PLATFORM_Y - (i + 1) * spacing;
     }
 
-    // -------- Khởi tạo / reset --------
+    // ======== khoi tao / reset ===========
 
     function resetGame() {
         blocks = [];
@@ -161,7 +161,7 @@
         };
     }
 
-    // -------- Vòng lặp chính --------
+    // ======== vong lap chinh =========
 
     function loop(time) {
         if (!lastTime) lastTime = time;
@@ -267,7 +267,7 @@
         });
     }
 
-    // -------- Vẽ --------
+    // ========= ve =========
 
     function draw() {
         ctx.clearRect(0, 0, W, H);
@@ -350,7 +350,7 @@
         c.closePath();
     }
 
-    // -------- HUD --------
+    // ======== hub ========
 
     const scoreEl = document.getElementById("gameScore");
     const bestEl = document.getElementById("gameBest");
@@ -381,7 +381,7 @@
         }
     }
 
-    // -------- Bia Đá Trí Tuệ (checkpoint quiz) --------
+    // ========= bia da tri tue ==========
 
     const quizOverlay = document.getElementById("quizOverlay");
     const quizQuestionEl = document.getElementById("quizQuestion");
@@ -466,7 +466,7 @@
         }, 1200);
     }
 
-    // -------- Bắt đầu / Kết thúc --------
+    // ========= bat dau / ket thuc ===========
 
     const startOverlay = document.getElementById("startOverlay");
     const gameoverOverlay = document.getElementById("gameoverOverlay");
@@ -491,7 +491,7 @@
         if (gameoverOverlay) gameoverOverlay.classList.add("show");
     }
 
-    // -------- Sự kiện --------
+    // ======== cac su kien ==========
 
     canvas.addEventListener("click", () => {
         if (state === "playing") drop();

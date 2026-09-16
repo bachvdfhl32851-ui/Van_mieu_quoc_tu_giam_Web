@@ -1,5 +1,4 @@
-// ================================
-// CHUYỂN TRANG MƯỢT (PAGE TRANSITION)
+// chuyen trang muot
 // ================================
 
 const supportsViewTransitions = "startViewTransition" in document;
@@ -37,7 +36,7 @@ if (!supportsViewTransitions && !prefersReducedMotion) {
 
 
 // ================================
-// CHẾ ĐỘ SÁNG / TỐI
+// che do sang / toi
 // ================================
 
 const themeToggle = document.getElementById("themeToggle");
@@ -75,7 +74,7 @@ if (themeToggle) {
 
 
 // ================================
-// MENU MOBILE
+// che do dien thoai
 // ================================
 
 const menuBtn = document.getElementById("menuBtn");
@@ -90,7 +89,6 @@ if (menuBtn && navbar) {
     });
 
 
-    // Đóng menu sau khi click link
 
     document.querySelectorAll(".navbar a").forEach(link => {
 
@@ -106,7 +104,7 @@ if (menuBtn && navbar) {
 
 
 // ================================
-// NÚT VỀ ĐẦU TRANG
+// nut ve dau trang
 // ================================
 
 const topBtn = document.getElementById("topBtn");
@@ -144,7 +142,7 @@ if (topBtn) {
 
 
 // ================================
-// MỞ / ĐÓNG NỘI DUNG CHI TIẾT (dùng chung)
+// mo / dong noi dung chi tiet
 // ================================
 
 function initExpandableCards(cardSelector, detailSelector) {
@@ -180,7 +178,7 @@ function initExpandableCards(cardSelector, detailSelector) {
 
             const isOpen = card.getAttribute("aria-expanded") === "true";
 
-            // Đóng tất cả các ô khác trong cùng nhóm
+            // dong tat ca cac card khac cung nhom
 
             cards.forEach(otherCard => {
 
@@ -221,7 +219,54 @@ initExpandableCards(".accordion-item", ".accordion-body");
 
 
 // ================================
-// HIỆU ỨNG XUẤT HIỆN
+// gia tri
+// ================================
+
+const valuesGrid = document.querySelector(".values-grid");
+
+if (valuesGrid) {
+
+    const valueCards = valuesGrid.querySelectorAll(".value-card");
+
+    function toggleValueCard(card) {
+
+        const isOpen = card.classList.contains("is-open");
+
+        valueCards.forEach(c => {
+            c.classList.remove("is-open");
+            c.setAttribute("aria-expanded", "false");
+        });
+
+        if (isOpen) {
+            valuesGrid.classList.remove("has-expanded");
+        } else {
+            card.classList.add("is-open");
+            card.setAttribute("aria-expanded", "true");
+            valuesGrid.classList.add("has-expanded");
+        }
+
+    }
+
+    valueCards.forEach(card => {
+
+        card.addEventListener("click", () => toggleValueCard(card));
+
+        card.addEventListener("keydown", (e) => {
+
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggleValueCard(card);
+            }
+
+        });
+
+    });
+
+}
+
+
+// ================================
+// hieu ung xuat hien
 // ================================
 
 const observer = new IntersectionObserver(
@@ -249,10 +294,130 @@ const observer = new IntersectionObserver(
 
 document
     .querySelectorAll(
-        ".architecture-card, .value-card, .visit-card, .timeline-item"
+        ".architecture-card, .value-card, .visit-card, .timeline-item, .library-card"
     )
     .forEach(element => {
 
         observer.observe(element);
 
     });
+
+
+// ================================
+// lightbox xem anh thu vien
+// ================================
+
+const galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
+
+if (galleryItems.length) {
+
+    let currentIndex = 0;
+
+    // tao lightbox
+
+    const lightbox = document.createElement("div");
+    lightbox.className = "lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-label", "Xem ảnh phóng to");
+
+    lightbox.innerHTML = `
+        <button class="lightbox-btn lightbox-close" aria-label="Đóng">✕</button>
+        <button class="lightbox-btn lightbox-prev" aria-label="Ảnh trước">‹</button>
+        <button class="lightbox-btn lightbox-next" aria-label="Ảnh sau">›</button>
+        <figure class="lightbox-figure">
+            <img class="lightbox-img" src="" alt="">
+            <figcaption class="lightbox-caption">
+                <h3></h3>
+                <p></p>
+                <div class="lightbox-counter"></div>
+            </figcaption>
+        </figure>
+    `;
+
+    document.documentElement.appendChild(lightbox);
+
+    const lbImg = lightbox.querySelector(".lightbox-img");
+    const lbTitle = lightbox.querySelector(".lightbox-caption h3");
+    const lbSource = lightbox.querySelector(".lightbox-caption p");
+    const lbCounter = lightbox.querySelector(".lightbox-counter");
+
+    function showImage(index) {
+
+        currentIndex = (index + galleryItems.length) % galleryItems.length;
+
+        const item = galleryItems[currentIndex];
+        const img = item.querySelector("img");
+        const title = item.querySelector(".gallery-caption h3");
+        const source = item.querySelector(".gallery-caption p");
+
+        lbImg.src = img.getAttribute("src");
+        lbImg.alt = img.getAttribute("alt") || "";
+
+        lbTitle.textContent = title ? title.textContent.trim() : "";
+        lbSource.textContent = source ? source.textContent.trim() : "";
+        lbCounter.textContent = (currentIndex + 1) + " / " + galleryItems.length;
+
+    }
+
+    function openLightbox(index) {
+        showImage(index);
+        lightbox.classList.add("show");
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("show");
+        document.body.style.overflow = "";
+    }
+
+    galleryItems.forEach((item, index) => {
+
+        item.setAttribute("tabindex", "0");
+        item.setAttribute("role", "button");
+
+        item.addEventListener("click", () => openLightbox(index));
+
+        item.addEventListener("keydown", (e) => {
+
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openLightbox(index);
+            }
+
+        });
+
+    });
+
+    lightbox.querySelector(".lightbox-close").addEventListener("click", closeLightbox);
+
+    lightbox.querySelector(".lightbox-prev").addEventListener("click", (e) => {
+        e.stopPropagation();
+        showImage(currentIndex - 1);
+    });
+
+    lightbox.querySelector(".lightbox-next").addEventListener("click", (e) => {
+        e.stopPropagation();
+        showImage(currentIndex + 1);
+    });
+
+    // bam ra nen ngoai de dong
+
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox || e.target.classList.contains("lightbox-figure")) {
+            closeLightbox();
+        }
+    });
+
+    // dieu khien bang ban phim
+
+    document.addEventListener("keydown", (e) => {
+
+        if (!lightbox.classList.contains("show")) return;
+
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") showImage(currentIndex - 1);
+        if (e.key === "ArrowRight") showImage(currentIndex + 1);
+
+    });
+
+}
