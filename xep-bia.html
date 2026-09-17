@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Khuê Văn Các | Văn Miếu - Quốc Tử Giám</title>
+    <title>Mini Game | Văn Miếu - Quốc Tử Giám</title>
 
     <meta name="description"
-          content="Khuê Văn Các - biểu tượng của Thủ đô Hà Nội tại Văn Miếu - Quốc Tử Giám: lịch sử, kiến trúc và ý nghĩa biểu tượng.">
+          content="Mini game về Văn Miếu - Quốc Tử Giám: xếp bia Tiến sĩ lên lưng rùa đá.">
 
     <link rel="stylesheet" href="style.css">
 
@@ -46,7 +46,7 @@
 
         <a href="history.html">Lịch sử</a>
 
-        <a href="architecture.html" class="current">Kiến trúc</a>
+        <a href="architecture.html">Kiến trúc</a>
 
         <a href="values.html">Giá trị</a>
 
@@ -58,7 +58,7 @@
 
         <a href="thu-vien.html">Thư viện</a>
 
-        <a href="game.html">Mini Game</a>
+        <a href="game.html" class="current">Mini Game</a>
 
     </nav>
 
@@ -77,71 +77,115 @@
 
 <section class="page-banner">
 
-    <p>KIẾN TRÚC</p>
+    <p>MINI GAME</p>
 
-    <h1>Khuê Văn Các</h1>
+    <h1>Xếp bia Tiến sĩ lên lưng rùa đá</h1>
 
     <div class="line"></div>
 
     <div class="breadcrumb">
-        <a href="index.html">Trang chủ</a> /
-        <a href="architecture.html">Kiến trúc</a> /
-        Khuê Văn Các
+        <a href="index.html">Trang chủ</a> / <a href="game.html">Mini Game</a> / Xếp bia Tiến sĩ lên lưng rùa đá
     </div>
 
 </section>
 
 
-<!-- ================= noi dung chi tiet ================= -->
+<!-- ================= nut quay lai ================= -->
 
-<section class="section">
+<div class="back-to-games-wrap">
+    <a href="game.html" class="back-to-games">
+        <span class="back-to-games-arrow">←</span>
+        Quay lại Mini Game
+    </a>
+</div>
 
-    <article class="detail-article">
 
-        <a class="back-link" href="architecture.html">← Quay lại Kiến trúc</a>
+<!-- ================= xep bia ================= -->
 
-        <p class="lead">
-            Một trong những công trình nổi tiếng nhất của Văn Miếu – Quốc Tử Giám, trở thành biểu tượng gắn với hình ảnh Hà Nội.
-        </p>
+<section class="section game-section" id="stackGame">
 
-        <h2>Năm xây dựng và Người sáng lập</h2>
+    <div class="section-title center">
 
-        <p>
-            Được xây dựng vào năm 1805 (thời Nguyễn) bởi Tổng trấn Bắc thành Nguyễn Văn Thành.
-        </p>
+        <p>THỬ THÁCH XẾP BIA</p>
 
-        <h2>Đặc điểm kiến trúc</h2>
+        <h2>Xếp bia Tiến sĩ lên lưng rùa đá</h2>
 
-        <p>
-            Công trình là một lầu vuông gồm 2 tầng, 8 mái. Tầng dưới gồm 4 trụ gạch vuông sơn đỏ, tầng trên là gác gỗ mộc sơn thiếp, mái lợp ngói ống/ngói mũi hài.
-        </p>
+        <div class="line"></div>
 
-        <p>
-            Tầng trên có 4 cửa sổ hình tròn tỏa ra các vạt gỗ xung quanh như ánh sáng ngôi sao tỏa rạng.
-        </p>
+    </div>
 
-        <p>
-            Hai bên Khuê Văn Các có hai cửa nhỏ mang tên Bí Văn (văn chương trau chuốt, sáng rõ) và Súc Văn (văn chương hàm súc, súc tích).
-        </p>
+    <p class="game-instructions">
+        Chạm vào bàn cờ (hoặc nhấn phím Cách) đúng lúc để thả tấm bia
+        xuống, xếp thật thẳng hàng lên tấm bia trước đó. Cứ mỗi khi xếp
+        được 1 tầng, câu hỏi sẽ xuất hiện trong 10 giây để nhận Buff hỗ trợ! 
+        Xếp càng cao, sĩ tử càng tiến gần Bảng Vàng.
+    </p>
 
-        <h2>Ý nghĩa biểu tượng</h2>
+    <div class="game-wrap">
 
-        <p>
-            Sao Khuê là ngôi sao chủ về văn học, trí tuệ và học thuật trong thiên văn học cổ đại phương Đông.
-        </p>
+        <div class="game-hud">
 
-        <p>
-            Thiết kế hình vuông của phần chân (tượng trưng cho Đất) kết hợp với cửa sổ tròn ở tầng trên (tượng trưng cho Trời) thể hiện triết lý "Âm Dương hòa hợp – Trời Đất giao hòa".
-        </p>
+            <div class="game-hud-item">
+                <span>TẦNG BIA</span>
+                <strong id="gameScore">0</strong>
+            </div>
 
-        <p>
-            Năm 1997, Khuê Văn Các chính thức được chọn làm biểu tượng của Thủ đô Hà Nội và được quy định cụ thể trong Luật Thủ đô.
-        </p>
+            <div class="game-hud-item">
+                <span>KỶ LỤC</span>
+                <strong id="gameBest">0</strong>
+            </div>
 
-    </article>
+        </div>
+
+        <div class="game-canvas-box">
+
+            <canvas id="gameCanvas" width="360" height="645"></canvas>
+
+            <div id="buffBadge" class="buff-badge"></div>
+
+            <!-- man hinh bat dau -->
+            <div id="startOverlay" class="game-overlay show">
+                <h3>Đội Bảng Lên Bảng Vàng</h3>
+                <p>
+                    Xếp bia Tiến sĩ thật cân bằng lên lưng rùa đá.
+                    Chạm đúng lúc, xếp thật cao!
+                </p>
+                <button id="startGameBtn" class="btn-solid">BẮT ĐẦU</button>
+            </div>
+
+            <!-- bia da tri tue -->
+            <div id="quizOverlay" class="game-overlay quiz-overlay">
+                <p class="quiz-label">BIA ĐÁ TRÍ TUỆ</p>
+                <div class="quiz-timerbar">
+                    <div id="quizBar" class="quiz-timerbar-fill"></div>
+                </div>
+                <h3 id="quizQuestion">Câu hỏi...</h3>
+                <div id="quizOptions" class="quiz-options"></div>
+                <p id="quizFeedback" class="quiz-feedback"></p>
+            </div>
+
+            <!-- ket thuc -->
+            <div id="gameoverOverlay" class="game-overlay">
+                <h3>Tháp bia đã đổ!</h3>
+                <p id="gameoverPoem" class="gameover-poem"></p>
+                <div class="gameover-score">
+                    <div>
+                        <span>Tầng đạt được</span>
+                        <strong id="finalScore">0</strong>
+                    </div>
+                    <div>
+                        <span>Kỷ lục</span>
+                        <strong id="finalBest">0</strong>
+                    </div>
+                </div>
+                <button id="retryGameBtn" class="btn-solid">CHƠI LẠI</button>
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
-
 
 <footer>
 
@@ -225,6 +269,7 @@
 
 <script src="script.js"></script>
 <script src="effects.js"></script>
+<script src="minigame.js"></script>
 
 </body>
 </html>

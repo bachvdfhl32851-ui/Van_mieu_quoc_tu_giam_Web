@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini Game | Văn Miếu - Quốc Tử Giám</title>
+
+    <meta name="description"
+          content="Mini game về Văn Miếu - Quốc Tử Giám: trắc nghiệm Bảng Vàng Khởi Trí qua ba kỳ thi Hương - Hội - Đình.">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="effects.css">
+</head>
+
+<body>
+
+<!-- ================= header ================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <div class="logo-symbol">文</div>
+
+        <div>
+            <span>VĂN MIẾU</span>
+            <small>QUỐC TỬ GIÁM</small>
+        </div>
+    </div>
+
+    <nav class="navbar">
+
+        <a href="index.html">Trang chủ</a>
+
+        <a href="history.html">Lịch sử</a>
+
+        <a href="architecture.html">Kiến trúc</a>
+
+        <a href="values.html">Giá trị</a>
+
+        <a href="visit.html">Tham quan</a>
+
+        <a href="dich-vu.html">Dịch vụ</a>
+
+        <a href="facts.html">Sự thật thú vị</a>
+
+        <a href="thu-vien.html">Thư viện</a>
+
+        <a href="game.html" class="current">Mini Game</a>
+
+    </nav>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Chuyển giao diện sáng / tối">
+        ☾
+    </button>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Mở menu điều hướng">
+        ☰
+    </button>
+
+</header>
+
+
+<!-- ================= page banner ================= -->
+
+<section class="page-banner">
+
+    <p>MINI GAME</p>
+
+    <h1>Bảng Vàng Khởi Trí</h1>
+
+    <div class="line"></div>
+
+    <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a> / <a href="game.html">Mini Game</a> / Bảng Vàng Khởi Trí
+    </div>
+
+</section>
+
+
+<!-- ================= nut quay lai ================= -->
+
+<div class="back-to-games-wrap">
+    <a href="game.html" class="back-to-games">
+        <span class="back-to-games-arrow">←</span>
+        Quay lại Mini Game
+    </a>
+</div>
+
+
+<!-- ================= bang vang khoi tri ================= -->
+
+<section class="section quiz-game-section" id="quizGame">
+
+    <div class="section-title center">
+
+        <p>THỬ THÁCH TRI THỨC</p>
+
+        <h2>Bảng Vàng Khởi Trí</h2>
+
+        <div class="line"></div>
+
+    </div>
+
+    <p class="game-instructions">
+        Vượt qua ba kỳ thi xưa — Thi Hương, Thi Hội, Thi Đình — bằng cách trả
+        lời 10 câu hỏi về lịch sử Văn Miếu, các bậc hiền tài (Chu Văn An,
+        Thân Nhân Trung...) và ý nghĩa 82 bia Tiến sĩ. Đỗ trọn cả ba kỳ thi
+        để được xướng danh Trạng Nguyên!
+    </p>
+
+    <div class="quizgame-wrap">
+
+        <div class="exam-steps" id="examSteps">
+
+            <div class="exam-step" data-stage="0">
+                <span class="exam-step-num">1</span>
+                <span>THI HƯƠNG</span>
+            </div>
+
+            <div class="exam-step-line" id="examLine0"></div>
+
+            <div class="exam-step" data-stage="1">
+                <span class="exam-step-num">2</span>
+                <span>THI HỘI</span>
+            </div>
+
+            <div class="exam-step-line" id="examLine1"></div>
+
+            <div class="exam-step" data-stage="2">
+                <span class="exam-step-num">3</span>
+                <span>THI ĐÌNH</span>
+            </div>
+
+        </div>
+
+        <div class="quizgame-card">
+
+            <div class="quizgame-hud">
+                <span id="qgStageLabel">TRƯỜNG THI</span>
+                <span id="qgProgress">Câu 0/10</span>
+            </div>
+
+            <div class="quizgame-progressbar">
+                <div id="qgProgressFill" class="quizgame-progressbar-fill"></div>
+            </div>
+
+            <!-- man hinh bat dau -->
+            <div id="qgStartOverlay" class="qg-overlay show">
+                <h3>Vào trường thi</h3>
+                <p>
+                    10 câu hỏi, 3 kỳ thi. Đỗ càng cao, danh hiệu càng lớn.
+                    Trả lời đúng trọn vẹn để nhận danh hiệu Trạng Nguyên online
+                    cùng quà tặng đặc biệt!
+                </p>
+                <button id="qgStartBtn" class="btn-solid">VÀO TRƯỜNG THI</button>
+            </div>
+
+            <!-- cau hoi -->
+            <div id="qgQuestionBox" class="qg-question-box">
+                <h3 id="qgQuestion">Câu hỏi...</h3>
+                <div id="qgOptions" class="quiz-options qg-options"></div>
+                <p id="qgFeedback" class="quiz-feedback"></p>
+            </div>
+
+            <!-- ket qua -->
+            <div id="qgResultOverlay" class="qg-overlay">
+                <div class="qg-result-badge" id="qgResultBadge"></div>
+                <h3 id="qgResultTitle">Trạng Nguyên online</h3>
+                <p id="qgResultDesc"></p>
+                <div class="qg-score">
+                    <span>ĐIỂM SỐ</span>
+                    <strong id="qgFinalScore">0/10</strong>
+                </div>
+                <div id="qgRewardBox" class="qg-reward-box">
+                    <span>QUÀ TẶNG DÀNH CHO TRẠNG NGUYÊN</span>
+                    <strong id="qgRewardCode">VANMIEU-TRANGNGUYEN</strong>
+                    <small>Xuất trình mã này tại quầy lưu niệm Văn Miếu để nhận ưu đãi.</small>
+                </div>
+                <button id="qgRetryBtn" class="btn-solid">THI LẠI TỪ ĐẦU</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <div class="footer-logo">
+                VĂN MIẾU
+            </div>
+
+            <p>
+                QUỐC TỬ GIÁM
+            </p>
+
+            <span>
+                Gần một thiên niên kỷ lưu giữ
+                tinh hoa đạo học Việt Nam.
+            </span>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h4>
+                KHÁM PHÁ
+            </h4>
+
+            <a href="history.html">Lịch sử</a>
+            <a href="architecture.html">Kiến trúc</a>
+
+        <a href="stelae.html">Bia Tiến sĩ</a>
+
+                <a href="values.html">Giá trị</a>
+            <a href="dich-vu.html">Dịch vụ</a>
+            <a href="facts.html">Sự thật thú vị</a>
+            <a href="thu-vien.html">Thư viện</a>
+            <a href="game.html">Mini Game</a>
+            <a href="team.html">Thành viên</a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h4>
+                THAM QUAN
+            </h4>
+
+            <a href="visit.html">Thông tin tham quan</a>
+            <a href="visit.html">Giờ mở cửa</a>
+            <a href="visit.html">Giá vé</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 Văn Miếu – Quốc Tử Giám
+
+        <br>
+
+        Thông tin tham khảo:
+        Trung tâm Hoạt động Văn hóa Khoa học
+        Văn Miếu – Quốc Tử Giám
+
+    </div>
+
+</footer>
+
+
+<!-- nut len dau trang -->
+
+<button id="topBtn" class="top-btn" aria-label="Về đầu trang">
+    ↑
+</button>
+
+
+<script src="script.js"></script>
+<script src="effects.js"></script>
+<script src="quizgame.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+/* =====================================================================
+   EFFECTS.CSS — lớp hiệu ứng bổ sung cho Văn Miếu – Quốc Tử Giám
+   Nạp SAU style.css. Dùng lại toàn bộ biến màu/spacing đã khai báo
+   trong :root và [data-theme="dark"] của style.css.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   0. Tiện ích dùng chung
+--------------------------------------------------------------------- */
+
+:root {
+    --fx-glow: 198, 155, 82;      /* rgb của --gold, dùng cho rgba() động */
+    --fx-accent-rgb: 142, 29, 34; /* rgb của --red / --accent (light) */
+}
+
+[data-theme="dark"] {
+    --fx-accent-rgb: 226, 102, 107;
+}
+
+/* Tắt toàn bộ hiệu ứng chuyển động cho người dùng yêu cầu giảm hiệu ứng */
+@media (prefers-reduced-motion: reduce) {
+    .fx-cursor-dot,
+    .fx-cursor-ring,
+    .fx-marquee-track,
+    .kinetic-word,
+    .fx-reveal {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   1. Custom cursor
+--------------------------------------------------------------------- */
+
+@media (pointer: fine) {
+
+    html.fx-has-cursor,
+    html.fx-has-cursor a,
+    html.fx-has-cursor button {
+        cursor: none;
+    }
+
+    .fx-cursor-dot,
+    .fx-cursor-ring {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        pointer-events: none;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        will-change: transform;
+    }
+
+    .fx-cursor-dot {
+        width: 7px;
+        height: 7px;
+        background: var(--gold);
+        transition: opacity 200ms ease, background 200ms ease;
+    }
+
+    .fx-cursor-ring {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(var(--fx-glow), 0.75);
+        transition: width 220ms ease, height 220ms ease,
+                    border-color 220ms ease, opacity 200ms ease,
+                    background 220ms ease;
+    }
+
+    html.fx-cursor-hover .fx-cursor-ring {
+        width: 60px;
+        height: 60px;
+        background: rgba(var(--fx-glow), 0.12);
+        border-color: var(--gold);
+    }
+
+    html.fx-cursor-hover .fx-cursor-dot {
+        opacity: 0;
+    }
+
+    html.fx-cursor-hidden .fx-cursor-dot,
+    html.fx-cursor-hidden .fx-cursor-ring {
+        opacity: 0;
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   2. Tilt / Magnetic + Glow theo con trỏ (spotlight)
+--------------------------------------------------------------------- */
+
+.fx-tilt {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.fx-glow {
+    position: relative;
+    isolation: isolate;
+}
+
+.fx-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 5;
+    background: radial-gradient(
+        220px circle at var(--fx-mx, 50%) var(--fx-my, 50%),
+        rgba(var(--fx-glow), 0.35),
+        transparent 60%
+    );
+    transition: opacity 320ms ease;
+}
+
+.fx-glow:hover::after,
+.fx-glow:focus-within::after {
+    opacity: 1;
+}
+
+.fx-magnetic {
+    will-change: transform;
+    transition: transform 250ms cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+
+/* ---------------------------------------------------------------------
+   3. Micro-interactions — ripple
+--------------------------------------------------------------------- */
+
+.fx-ripple-host {
+    position: relative;
+    overflow: hidden;
+}
+
+.fx-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    transform: scale(0);
+    animation: fx-ripple-anim 620ms ease-out forwards;
+    pointer-events: none;
+    z-index: 3;
+}
+
+[data-theme="dark"] .fx-ripple {
+    background: rgba(198, 155, 82, 0.45);
+}
+
+@keyframes fx-ripple-anim {
+    to {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   4. Glassmorphism
+--------------------------------------------------------------------- */
+
+.fx-glass {
+    background: rgba(255, 255, 255, 0.10) !important;
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] .fx-glass {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+.notice.fx-glass {
+    background: rgba(255, 255, 255, 0.35) !important;
+}
+
+[data-theme="dark"] .notice.fx-glass {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+
+/* ---------------------------------------------------------------------
+   5. Gradient text / animated gradient accents
+--------------------------------------------------------------------- */
+
+.fx-gradient-text {
+    background: linear-gradient(90deg, var(--gold), #f3d9a4, var(--gold));
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fx-gradient-shift 6s linear infinite;
+}
+
+@keyframes fx-gradient-shift {
+    to {
+        background-position: -220% center;
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   6. Marquee (kinetic strip)
+--------------------------------------------------------------------- */
+
+.fx-marquee {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    height: 46px;
+
+    background: var(--dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.fx-marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    white-space: nowrap;
+    animation: fx-marquee-scroll 26s linear infinite;
+}
+
+.fx-marquee:hover .fx-marquee-track {
+    animation-play-state: paused;
+}
+
+.fx-marquee-track span {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+
+    color: var(--gold);
+    opacity: 0.9;
+}
+
+.fx-marquee-track span::after {
+    content: "✦";
+    margin-left: 18px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fx-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+
+/* ---------------------------------------------------------------------
+   7. Scroll reveal (bổ sung, không đụng .visible sẵn có)
+--------------------------------------------------------------------- */
+
+.fx-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 700ms ease, transform 700ms ease;
+    transition-delay: var(--fx-delay, 0ms);
+}
+
+.fx-reveal.fx-zoom {
+    transform: translateY(0) scale(0.92);
+}
+
+.fx-reveal.fx-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+
+/* Kinetic word reveal (tiêu đề tách theo từ) */
+
+.kinetic-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.5em);
+    letter-spacing: 0.08em;
+    transition: opacity 560ms ease, transform 560ms ease, letter-spacing 560ms ease;
+    transition-delay: var(--fx-delay, 0ms);
+    will-change: transform, opacity;
+}
+
+.kinetic-word.fx-in {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: normal;
+}
+
+
+/* ---------------------------------------------------------------------
+   8. Sticky stack scroll (dùng cho lưới 4 thẻ kiến trúc)
+--------------------------------------------------------------------- */
+
+@media (min-width: 900px) {
+
+    .architecture-grid.fx-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 26px;
+    }
+
+    .architecture-grid.fx-stack .architecture-card {
+        position: sticky;
+        width: 100%;
+        min-height: 220px;
+    }
+
+}
+
+
+/* ---------------------------------------------------------------------
+   9. Hover reveal ảnh (thư viện / gallery)
+--------------------------------------------------------------------- */
+
+.gallery-item {
+    position: relative;
+}
+
+.gallery-item img {
+    transition: transform 500ms ease, filter 500ms ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.08);
+    filter: saturate(1.15) brightness(1.03);
+}
+
+.gallery-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(0,0,0,0.28), transparent 40%);
+    opacity: 0;
+    transition: opacity 400ms ease;
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+}
+
+
+/* ---------------------------------------------------------------------
+   10. Underline / fill sweep cho liên kết (nav, footer, discover)
+--------------------------------------------------------------------- */
+
+.discover,
+.footer-links a {
+    background-image: linear-gradient(var(--gold), var(--gold));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 320ms ease, color 320ms ease, padding 320ms ease;
+}
+
+.architecture-card:hover .discover,
+.library-card:hover .discover,
+.footer-links a:hover {
+    background-size: 100% 1px;
+    padding-left: 4px;
+}
+
+
+/* ---------------------------------------------------------------------
+   11. Parallax helper (JS gán transform/backgroundPosition trực tiếp)
+--------------------------------------------------------------------- */
+
+.hero {
+    will-change: background-position;
+}
+
+
+/* ---------------------------------------------------------------------
+   12. Responsive & touch fallback
+--------------------------------------------------------------------- */
+
+@media (pointer: coarse), (max-width: 700px) {
+
+    .fx-cursor-dot,
+    .fx-cursor-ring {
+        display: none !important;
+    }
+
+    .fx-glow::after {
+        display: none;
+    }
+
+    .architecture-grid.fx-stack .architecture-card {
+        position: static;
+    }
+
+}

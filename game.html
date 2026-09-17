@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Đội Bảng Lên Bảng Vàng | Văn Miếu - Quốc Tử Giám</title>
+    <title>Mini Game | Văn Miếu - Quốc Tử Giám</title>
 
     <meta name="description"
-          content="Mini game xếp bia Tiến sĩ lên lưng rùa đá - trả lời câu hỏi Bia Đá Trí Tuệ để nhận buff và chinh phục Bảng Vàng.">
+          content="Hai mini game về Văn Miếu - Quốc Tử Giám: xếp bia Tiến sĩ lên lưng rùa đá và trắc nghiệm Bảng Vàng Khởi Trí qua ba kỳ thi Hương - Hội - Đình.">
 
     <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" href="effects.css">
 </head>
 
 <body>
@@ -41,11 +48,11 @@
 
         <a href="architecture.html">Kiến trúc</a>
 
-        <a href="stelae.html">Bia Tiến sĩ</a>
-
         <a href="values.html">Giá trị</a>
 
         <a href="visit.html">Tham quan</a>
+
+        <a href="dich-vu.html">Dịch vụ</a>
 
         <a href="facts.html">Sự thật thú vị</a>
 
@@ -72,7 +79,7 @@
 
     <p>MINI GAME</p>
 
-    <h1>Đội Bảng Lên Bảng Vàng</h1>
+    <h1>Trường Thi Văn Miếu</h1>
 
     <div class="line"></div>
 
@@ -83,92 +90,29 @@
 </section>
 
 
-<!-- ================= game ================= -->
+<!-- ================= chon game ================= -->
 
-<section class="section game-section">
+<div class="section" style="padding-bottom: 0;">
 
-    <div class="section-title center">
+    <div class="game-hub-grid">
 
-        <p>THỬ THÁCH XẾP BIA</p>
+        <a href="xep-bia.html" class="game-hub-card">
+            <span class="game-hub-icon" aria-hidden="true"></span>
+            <h3>Xếp bia Tiến sĩ </h3>
+            <p>Xếp bia Tiến sĩ thật cân bằng lên lưng rùa đá, trả lời câu hỏi để nhận Buff hỗ trợ.</p>
+            <span class="game-hub-cta">Chơi ngay <span class="game-hub-cta-arrow">→</span></span>
+        </a>
 
-        <h2>Xếp bia Tiến sĩ lên lưng rùa đá</h2>
-
-        <div class="line"></div>
-
-    </div>
-
-    <p class="game-instructions">
-        Chạm vào bàn cờ (hoặc nhấn phím Cách) đúng lúc để thả tấm bia
-        xuống, xếp thật thẳng hàng lên tấm bia trước đó. Cứ mỗi khi xếp
-        được 1 tầng, câu hỏi sẽ xuất hiện trong 10 giây để nhận Buff hỗ trợ! 
-        Xếp càng cao, sĩ tử càng tiến gần Bảng Vàng.
-    </p>
-
-    <div class="game-wrap">
-
-        <div class="game-hud">
-
-            <div class="game-hud-item">
-                <span>TẦNG BIA</span>
-                <strong id="gameScore">0</strong>
-            </div>
-
-            <div class="game-hud-item">
-                <span>KỶ LỤC</span>
-                <strong id="gameBest">0</strong>
-            </div>
-
-        </div>
-
-        <div class="game-canvas-box">
-
-            <canvas id="gameCanvas" width="360" height="645"></canvas>
-
-            <div id="buffBadge" class="buff-badge"></div>
-
-            <!-- man hinh bat dau -->
-            <div id="startOverlay" class="game-overlay show">
-                <h3>Đội Bảng Lên Bảng Vàng</h3>
-                <p>
-                    Xếp bia Tiến sĩ thật cân bằng lên lưng rùa đá.
-                    Chạm đúng lúc, xếp thật cao!
-                </p>
-                <button id="startGameBtn" class="btn-solid">BẮT ĐẦU</button>
-            </div>
-
-            <!-- bia da tri tue -->
-            <div id="quizOverlay" class="game-overlay quiz-overlay">
-                <p class="quiz-label">BIA ĐÁ TRÍ TUỆ</p>
-                <div class="quiz-timerbar">
-                    <div id="quizBar" class="quiz-timerbar-fill"></div>
-                </div>
-                <h3 id="quizQuestion">Câu hỏi...</h3>
-                <div id="quizOptions" class="quiz-options"></div>
-                <p id="quizFeedback" class="quiz-feedback"></p>
-            </div>
-
-            <!-- ket thuc -->
-            <div id="gameoverOverlay" class="game-overlay">
-                <h3>Tháp bia đã đổ!</h3>
-                <p id="gameoverPoem" class="gameover-poem"></p>
-                <div class="gameover-score">
-                    <div>
-                        <span>Tầng đạt được</span>
-                        <strong id="finalScore">0</strong>
-                    </div>
-                    <div>
-                        <span>Kỷ lục</span>
-                        <strong id="finalBest">0</strong>
-                    </div>
-                </div>
-                <button id="retryGameBtn" class="btn-solid">CHƠI LẠI</button>
-            </div>
-
-        </div>
+        <a href="bang-vang.html" class="game-hub-card">
+            <span class="game-hub-icon" aria-hidden="true"></span>
+            <h3>Bảng Vàng Khởi Trí</h3>
+            <p>Trắc nghiệm kiến thức qua ba kỳ thi Hương - Hội - Đình, chinh phục Bảng Vàng.</p>
+            <span class="game-hub-cta">Chơi ngay <span class="game-hub-cta-arrow">→</span></span>
+        </a>
 
     </div>
 
-</section>
+</div>
 
 
 <footer>
@@ -201,11 +145,15 @@
 
             <a href="history.html">Lịch sử</a>
             <a href="architecture.html">Kiến trúc</a>
-            <a href="stelae.html">Bia Tiến sĩ</a>
-            <a href="values.html">Giá trị</a>
+
+        <a href="stelae.html">Bia Tiến sĩ</a>
+
+                <a href="values.html">Giá trị</a>
+            <a href="dich-vu.html">Dịch vụ</a>
             <a href="facts.html">Sự thật thú vị</a>
             <a href="thu-vien.html">Thư viện</a>
             <a href="game.html">Mini Game</a>
+            <a href="team.html">Thành viên</a>
 
         </div>
 
@@ -248,7 +196,9 @@
 
 
 <script src="script.js"></script>
+<script src="effects.js"></script>
 <script src="minigame.js"></script>
+<script src="quizgame.js"></script>
 
 </body>
 </html>
