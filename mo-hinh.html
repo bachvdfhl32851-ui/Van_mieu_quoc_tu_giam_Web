@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mô hình | Văn Miếu - Quốc Tử Giám</title>
+    <title>Mô hình (<strong>BETA</strong>) | Văn Miếu - Quốc Tử Giám</title>
 
     <meta name="description"
           content="Mô hình 3D tái hiện không gian kiến trúc Văn Miếu - Quốc Tử Giám.">
@@ -23,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="effects.css">
+    <link rel="stylesheet" href="mo-hinh/viewer.css">
 </head>
 
 <body>
@@ -79,32 +80,83 @@
 
     <p>THƯ VIỆN</p>
 
-    <h1>Mô hình</h1>
+    <h1>Mô hình (<strong>BETA</strong>)</h1>
 
     <div class="line"></div>
 
     <div class="breadcrumb">
         <a href="index.html">Trang chủ</a> /
         <a href="thu-vien.html">Thư viện</a> /
-        Mô hình
+        Mô hình (<strong>BETA</strong>)
     </div>
 
 </section>
 
 
-<!-- ================= noi dung chi tiet ================= -->
+<!-- ================= mo hinh 3D ================= -->
 
 <section class="section">
 
     <a class="back-link" style="max-width:1100px; margin-left:auto; margin-right:auto; display:flex;" href="thu-vien.html">← Quay lại Thư viện</a>
 
-    <div style="max-width:1100px; margin:30px auto 0;">
+    <div style="max-width:1100px; margin:26px auto 0;">
 
-        <!-- Khung hiển thị thế giới Minecraft Offline -->
-        <div style="width: 100%; height: 600px; border-radius: 10px; overflow: hidden; margin: 20px 0;">
-            <iframe src="./mo-hinh.html?world=https://drive.google.com/file/d/1q5WN741IzJUswTb-wvpmrXh1X-2TIrMq/view?usp=sharing" width="100%" height="100%" style="border: none;" allow="autoplay; fullscreen; keyboard" title="Minecraft World Explorer">
-            </iframe>
+        <!-- ===== khung xem mo hinh 3D (Three.js) ===== -->
+
+        <div class="vm-viewer" id="vm-viewer" data-mode="orbit">
+
+            <canvas class="vm-canvas"></canvas>
+
+            <div class="vm-meta">
+                <span class="vm-hint"></span>
+                <span class="vm-stats"></span>
+            </div>
+
+            <div class="vm-stick"></div>
+
+            <div class="vm-ui">
+
+                <div class="vm-group">
+                    <button type="button" data-mode="orbit" class="on">Xoay quanh</button>
+                    <button type="button" data-mode="fly">Bay tự do</button>
+                </div>
+
+                <div class="vm-group">
+                    <button type="button" data-view="gate">Cổng vào</button>
+                    <button type="button" data-view="overview">Toàn cảnh</button>
+                    <button type="button" data-view="top">Nhìn từ trên</button>
+                    <button type="button" data-view="inside">Vào bên trong</button>
+                </div>
+
+                <div class="vm-spacer"></div>
+
+                <div class="vm-group">
+                    <button type="button" data-act="shot" title="Lưu ảnh khung hình hiện tại">Chụp ảnh</button>
+                    <button type="button" data-act="full" title="Toàn màn hình">⛶</button>
+                </div>
+
+            </div>
+
+            <div class="vm-loading">
+                <div class="vm-seal">文</div>
+                <div class="vm-bar"><div class="vm-bar-fill"></div></div>
+                <p class="vm-loading-text">Đang tải mô hình…</p>
+            </div>
+
         </div>
+
+        <p style="margin:10px 0 0; color:var(--text-muted); line-height:1.8;">
+            Ở chế độ <strong>Xoay quanh</strong>, kéo chuột để xoay và lăn chuột để phóng to.
+            Ở chế độ <strong>Bay tự do</strong>, bấm vào khung hình rồi di chuyển bằng
+            W A S D, Space để lên cao, Shift để hạ xuống, giữ Ctrl để bay nhanh.
+
+            Trên điện thoại, cần gạt ở nửa trái dùng để đi, kéo nửa phải để nhìn quanh.
+        </p>
+
+        <p style="margin:18px 0 0; color:var(--text-muted); line-height:1.8;">
+            Có thể mất vài giây để mô hình load. Bạn vui lòng chờ nhé. Chúng mình cảm ơn!
+            <br><strong>Đây là bản Beta nên có thể gặp một số lỗi.</strong>
+        </p>
 
     </div>
 
@@ -169,6 +221,13 @@
     </div>
 
 
+    <div class="footer-partners">
+        <img src="assets/logo_vmqtg.png" alt="Văn Miếu - Quốc Tử Giám">
+        <div class="footer-partners-divider"></div>
+        <img src="assets/logo_FPT.jpg" alt="FPT Education">
+    </div>
+
+
     <div class="copyright">
 
         © 2026 Văn Miếu – Quốc Tử Giám
@@ -190,6 +249,17 @@
     ↑
 </button>
 
+
+<!-- Three.js tu CDN (jsDelivr) -->
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+}
+</script>
+<script type="module" src="mo-hinh/viewer.js"></script>
 
 <script src="script.js"></script>
 <script src="effects.js"></script>

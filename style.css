@@ -2667,6 +2667,90 @@ body.drawer-open {
 
 
 /* =========================
+    video grid (podcast/video)
+========================= */
+
+.video-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    max-width: 900px;
+
+    margin: 0 auto;
+}
+
+.video-card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-sm);
+
+    overflow: hidden;
+
+    transition: var(--transition);
+}
+
+.video-card:hover {
+    transform: translateY(-4px);
+
+    border-color: var(--gold);
+
+    box-shadow: var(--shadow-hover);
+}
+
+.video-frame {
+    position: relative;
+
+    width: 100%;
+    padding-top: 56.25%; /* ti le 16:9 */
+
+    background: var(--dark);
+}
+
+.video-frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+.video-info {
+    padding: 18px 22px 22px;
+}
+
+.video-info h3 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 18px;
+
+    margin-bottom: 6px;
+}
+
+.video-info p {
+    color: var(--text-muted);
+
+    font-size: 13px;
+}
+
+@media (max-width: 700px) {
+
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================
         footer
 ========================= */
 
@@ -2736,6 +2820,46 @@ footer {
 
 .footer-links a:hover {
     color: white;
+}
+
+.footer-partners {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 28px;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 16px 30px;
+
+    width: fit-content;
+
+    margin: 0 auto 40px;
+}
+
+.footer-partners img {
+    display: block;
+
+    height: 42px;
+
+    width: auto;
+
+    object-fit: contain;
+}
+
+.footer-partners .footer-partners-divider {
+    width: 1px;
+
+    height: 32px;
+
+    background: #ddd;
 }
 
 .copyright {
@@ -4036,6 +4160,16 @@ footer {
         grid-template-columns: 1fr;
 
         gap: 40px;
+    }
+
+    .footer-partners {
+        gap: 18px;
+
+        padding: 14px 20px;
+    }
+
+    .footer-partners img {
+        height: 34px;
     }
 
 }
